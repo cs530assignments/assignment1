@@ -70,21 +70,33 @@ void printHexSolution(char *argv[]) {
 //   }
 // }
 
+bool printableASCII(char ASCIICode) {
+  if ((ASCIICode - '0') > 31 || (ASCIICode - '0') < 127) {
+    return true;
+  }
+  return false;
+}
+
 void printBinarySolution(char *argv[]) {
   ifstream file(argv[2]);
   string currentLine;
-  string completedLine;
+  string validASCII;
   while (getline(file, currentLine)) {
     for (unsigned int i = 0; i < currentLine.length(); i++) {
-      if (i == 6) {
-        break;
+      if (i > 0 && i % 6 == 0) {
+        cout << validASCII << endl;
+        validASCII = "";
       }
       bitset<8> characterInBinary = currentLine[i];
-      completedLine = completedLine + to_string(characterInBinary) + ' ';
+      cout << characterInBinary << ' ';
+      if (printableASCII(currentLine[i])) {
+        validASCII = validASCII + currentLine[i];
+      }
+      if (i == currentLine.length() - 1) {
+        cout << validASCII << endl;
+        break;
+      }
     }
-    cout << completedLine;
-    printValidASCII(currentLine);
-    cout << '\n';
   }
 }
 
