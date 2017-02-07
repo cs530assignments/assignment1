@@ -54,14 +54,35 @@ void printHexSolution(char *argv[]) {
 /*
   Prints solution when user invokes the "-b"  flag
 */
+// void printBinarySolution(char *argv[]) {
+//   ifstream file(argv[2]);
+//   string currentLine;
+//   while (getline(file, currentLine)) {
+//     for (unsigned int i = 0; i < currentLine.length(); i++) {
+//       if (i == 6) {
+//         cout << '\n';
+//       }
+//       bitset<8> characterInBinary = currentLine[i];
+//       cout << characterInBinary << " "; 
+//     }
+//     printValidASCII(currentLine);
+//     cout << '\n';
+//   }
+// }
+
 void printBinarySolution(char *argv[]) {
   ifstream file(argv[2]);
   string currentLine;
+  string completedLine;
   while (getline(file, currentLine)) {
     for (unsigned int i = 0; i < currentLine.length(); i++) {
+      if (i == 6) {
+        break;
+      }
       bitset<8> characterInBinary = currentLine[i];
-      cout << characterInBinary << " "; 
+      completedLine = completedLine + to_string(characterInBinary) + ' ';
     }
+    cout << completedLine;
     printValidASCII(currentLine);
     cout << '\n';
   }
