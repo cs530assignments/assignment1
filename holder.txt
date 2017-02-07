@@ -1,0 +1,12 @@
+int word = 0;
+  while (getline(file, str)) {
+    for (unsigned int i = 0; i < str.length(); i++) {
+      if (i % 2 == 0) {
+        cout << " ";
+      }
+      cout << hex << static_cast<int>(str[i]);
+    }
+    cout << " ";
+    printValidASCII(str);
+    cout << '\n';
+  }
