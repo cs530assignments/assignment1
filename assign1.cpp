@@ -6,7 +6,6 @@
   Assignment 1 Hexdump
   assign1.cpp
 */
-
 #include "header.h"
 
 using namespace std;
@@ -43,8 +42,8 @@ void printHexString(char* str, long len) {
     if (len < 16) {
         spaces = 41 - (len*2 + len/2 + 1);
         s = string(spaces,' ');
-  if (len % 2 == 0)
-      cout << " ";
+    if (len % 2 == 0)
+        cout << " ";
     } else {
         s = " ";
     }
