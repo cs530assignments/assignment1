@@ -1,15 +1,11 @@
 #include "header.h"
 
-/* cssc0895 */
-
-/*Look through this and check if there are any comments we might need to add*/
-
 using namespace std;
 
 /*
- *  Determines if the given character is a valid ascii character
- *   by checking the printable ascii codes
- *    */
+ * Determines if the given character is a valid ascii character
+ * by checking the printable ascii codes
+ * */
 bool isValidASCII(char c) {
     if (c  > 31 && c < 127) {
         return true;
@@ -17,15 +13,15 @@ bool isValidASCII(char c) {
     return false;
 }
 /*
- *  Prints the address associated with the line of the file 
- *   */
+ * Prints the address associated with the line of the file 
+ * */
 void printStringAddr(int addr) {
     cout << setfill('0') << setw(7) << hex << addr;
     cout << ":";
 }
 /*
- *  Prints the hex codes from the given input file.
- *   */
+ * Prints the hex codes from the given input file.
+ * */
 void printHexString(char* str, long len) {
     for (unsigned int i = 0; i < len; i++) {
         if (i % 2 == 0) {
@@ -42,10 +38,14 @@ void printHexString(char* str, long len) {
 	    cout << " ";
     } else {
         s = " ";
-    } 
+    }
+    
     cout << " " << s;
 }
-
+/* 
+ * Prints the binary octet(s) for the characters
+ * from the given imput file
+ * */
 void printBinaryString(char* str, long len) {
     cout << " ";
     for (unsigned int i = 0; i < len; i++) {
@@ -61,8 +61,9 @@ void printBinaryString(char* str, long len) {
     cout << " " << s;
 }
 /*
- *  Prints the valid ascii characters from the current line of the input file
- *   */
+ * Prints the valid ascii characters from the current set of characters
+ * int the input file
+ * */
 void printValidASCII (char* str, long len) {
     for (unsigned int i = 0; i < len; i++) {
         if (isValidASCII(str[i])) {
@@ -74,14 +75,14 @@ void printValidASCII (char* str, long len) {
     cout << endl;
 }
 /*
- *  Prints the entire hexdump output if hex is requested output style
- *   */
+ * Prints the entire hexdump output if hex is requested output style
+ * */
 void printHexSolution(char *fname) {
     ifstream file(fname, std::ios::binary);
     char currentSixteen[16];
     int addr = 0;
     long charCount;
-    while (file.read(currentSixteen, 16)) {
+    while (file.read(currentSixteen, 16)) {  //prints in sets of 16
        charCount = file.gcount();
        printStringAddr(addr);
        printHexString(currentSixteen, charCount);
@@ -89,21 +90,21 @@ void printHexSolution(char *fname) {
        addr+=16;
     }
     charCount = file.gcount();
-    if (charCount > 0) {
+    if (charCount > 0) {  //if a set of less than 16 is left, the while loop skips it and this if catches it
         printStringAddr(addr);
         printHexString(currentSixteen, charCount);
         printValidASCII(currentSixteen, charCount);
     }
 }
 /*
- *  Prints solution when user invokes the "-b"  flag
- *   */
+ * Prints solution when user invokes the "-b"  flag
+ * */
 void printBinarySolution(char *fname) {
     ifstream file(fname, std::ios::binary);
     char currentSix[6];
     int addr = 0;
     long charCount;
-    while (file.read(currentSix, 6)) {
+    while (file.read(currentSix, 6)) {  //solution is printed in sets of 6 
         charCount = file.gcount();
         printStringAddr(addr);
         printBinaryString(currentSix, charCount);
@@ -111,7 +112,7 @@ void printBinarySolution(char *fname) {
         addr+=6;
     }
     charCount = file.gcount();
-    if (charCount > 0) {
+    if (charCount > 0) {  //if a set of less than 6 is left, the while loop skips it and this if catches it
         printStringAddr(addr);
         printBinaryString(currentSix, charCount);
         printValidASCII(currentSix, charCount);
