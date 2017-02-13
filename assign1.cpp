@@ -42,8 +42,7 @@ void printHexString(char* str, long len) {
 	    cout << " ";
     } else {
         s = " ";
-    }
-    
+    } 
     cout << " " << s;
 }
 
